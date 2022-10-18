@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,5 +28,15 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/test', function () {
+    return Inertia::render('Test');
+})->middleware(['auth', 'verified'])->name('test');
+
+Route::resource('books', BookController::class)->middleware(['auth', 'verified']);
+
+Route::post('/upload-books', [BookController::class, 'upload']);
+
+Route::post('/upload-books-revert', [BookController::class, 'uploadRevert']);
 
 require __DIR__.'/auth.php';
