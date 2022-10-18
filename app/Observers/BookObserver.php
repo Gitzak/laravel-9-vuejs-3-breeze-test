@@ -36,10 +36,11 @@ class BookObserver
      */
     public function deleted(Book $book)
     {
-        if($book->image)
-        {
-            if(file_exists(public_path($book->image))){
-                unlink(public_path($book->image));
+        if ($book->image) {
+            foreach (explode('|', $book->image) as $image) {
+                if (file_exists(public_path($image))) {
+                    unlink(public_path($image));
+                }
             }
         }
     }

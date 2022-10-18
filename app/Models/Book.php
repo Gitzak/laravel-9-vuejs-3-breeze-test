@@ -10,5 +10,24 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'author', 'image'];
+
+    public function hasImage(string $image){
+        return strpos($this->image, $image) !== false;
+    }
+
+    public function findMissingImages(array $images){
+        $missingImages = [];
+        $currentImages = $this->image ? explode('|', $this->image) : [];
+
+        foreach($currentImages as $image)
+        {
+            if(!in_array($image, $images))
+            {
+                $missingImages[] = $image;
+            }
+        }
+
+        return $missingImages;
+    }
     
 }

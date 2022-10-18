@@ -58,10 +58,13 @@ import { Head } from "@inertiajs/inertia-vue3";
                                         {{ item.author }}
                                     </td>
                                     <td class="border px-4 py-2">
-                                        <img
+                                        <!-- <img
                                             v-if="item.image"
                                             :src="image_path(item.image)"
-                                        />
+                                        /> -->
+                                        <div class="flex justify-center" v-if="item.image">
+                                            <img width="80" style="margin:2px" v-for="img in item.image.split('|')" :src="image_path(img)" />
+                                        </div>
                                     </td>
                                     <td class="border px-4 py-2">
                                         <div class="flex justify-center">
